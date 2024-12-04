@@ -1,18 +1,12 @@
-1
-ju oj
-7
-gy
+5
+A
+12
+Addrea
 0.0
 
-2
-Woo Weee
-2
-www
-0.0
-
-3
-WAaaa IIII
-433
-AWaa
+6
+B
+23
+Ewwa
 0.0
 

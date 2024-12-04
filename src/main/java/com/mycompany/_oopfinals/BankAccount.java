@@ -26,6 +26,7 @@ public abstract class BankAccount implements AccountInterface {
     public void setBalance(double age) { this.balance = balance; }
     
     public abstract void writeAccount();
+    public abstract void updateEntry(int offset);
     
     @Override
     public void deposit(double amount) {
@@ -34,7 +35,7 @@ public abstract class BankAccount implements AccountInterface {
 
     @Override
     public void withdraw(double amount) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        balance -= amount;
     }
 
     public void displayInfo()

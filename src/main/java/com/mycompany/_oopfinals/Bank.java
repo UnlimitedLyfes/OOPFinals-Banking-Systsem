@@ -36,23 +36,40 @@ public class Bank {
     
     public void searchUser()
     {
-        System.out.println("Search for Account:"
-                + "\n\n[1] Search by ID"
-                + "\n[2] Search by Name");
-        
-        int choice = getChoice();
-        
-        System.out.println("Search for: ");
-        
+        System.out.println("\nSearch for Account using Id or Name:");
         String searchTerm = getStringInput();
-        
-        switch(choice)
+        int fileOffset = getUserFileOffset(searchTerm);
+        if(fileOffset == -1)
+        {
+            System.out.println("\nUser not found.");
+        }
+        else
+        {
+            BankAccount searchedAccount = getAccountFromOffset(fileOffset);
+            searchedAccount.displayInfo();
+            editMenu(searchedAccount, fileOffset);
+        }
+    }
+    
+    private void editMenu(BankAccount acc, int offset)
+    {
+        System.out.println("\n[1] Deposit"
+                + "\n[2] Withdraw"
+                + "\n[3] Edit Information"
+                + "\n[4] Done");
+        switch(getChoice())
         {
             case 1:
-                getAccountById(searchTerm);
+                System.out.print("Insert amount to deposit: ");
+                acc.deposit(Double.parseDouble(getStringInput()));
+                acc.updateEntry(offset);
                 break;
             case 2:
-                getAccountByName(searchTerm);
+                System.out.print("Insert amount to deposit: ");
+                acc.withdraw(Double.parseDouble(getStringInput()));
+                acc.updateEntry(offset);
+                break;
+            case 3:
                 break;
         }
     }
@@ -99,16 +116,16 @@ public class Bank {
                 String str = scn.nextLine(); 
                 if(lineCount % 6 == 1)
                     chOffsetBeginning = chOffset;
-                if(str.contains(searchTerm))
+                if((lineCount % 6 == 1||lineCount % 6 == 2)&& str.contains(searchTerm))
                     return chOffsetBeginning;
-                chOffset += str.length() + 2; // need to +1 for newline, +2 if not working
+                chOffset += str.length() + 1; // need to +1 for newline, +2 if not working
                 
             }
         }catch(Exception e){ System.out.println(e); }  
         return -1;
     }
     
-    private void updateUserId()
+    private void updateUserId() // For The Counter
     {
         try
         {
@@ -119,61 +136,8 @@ public class Bank {
         } catch(Exception e){ System.out.println(e); }
     }
     
-    public void getAccountById(String id)
-    {
-        try{
-            Scanner scn = new Scanner(new File("BasicAccounts.txt"));
-            int lineCount = 0;
-            int chOffset = 0;
-            int chOffsetBeginning = 0; //Beginning of entry
-            while(scn.hasNextLine())
-            {
-                lineCount++;
-                String str = scn.nextLine(); 
-                if(lineCount % 6 == 1)
-                {
-                    chOffsetBeginning = chOffset;
-                    
-                    if(str.contains(id))
-                    {
-                        getAccountFromFile(chOffsetBeginning);
-                    } 
-                }
-                chOffset += str.length() + 2; // need to +1 for newline, +2 if not working
-                
-            }
-        }catch(Exception e){ System.out.println(e); }  
-    }
-    
-    public void getAccountByName(String name)
-    {
-        try{
-            Scanner scn = new Scanner(new File("BasicAccounts.txt"));
-            int lineCount = 0;
-            int chOffset = 0;
-            int chOffsetBeginning = 0; //Beginning of entry
-            while(scn.hasNextLine())
-            {
-                lineCount++;
-                String str = scn.nextLine(); 
-                
-                if(lineCount % 6 == 1)
-                    chOffsetBeginning = chOffset;
-                
-                if(lineCount % 6 == 2)
-                {
-                    if(str.contains(name))
-                    {
-                        getAccountFromFile(chOffsetBeginning);
-                    } 
-                }
-                chOffset += str.length() + 2; // need to +1 for newline, +2 if not working
-                
-            }
-        }catch(Exception e){ System.out.println(e); }
-    }
-    
-    private BankAccount getAccountFromFile(int offset)
+
+    private BankAccount getAccountFromOffset(int offset)
     {
         System.out.println("Reached");
         try{
@@ -185,7 +149,6 @@ public class Bank {
             account.setAge(Integer.parseInt(file.readLine()));
             account.setAddress(file.readLine());
             account.setBalance(Double.parseDouble(file.readLine()));
-            account.displayInfo();
             return account;
         }catch(Exception e){ System.out.println(e); }
         return new BasicAccount();
