@@ -9,8 +9,7 @@ public class BasicAccount extends BankAccount {
         {
              FileWriter fw = new FileWriter("BasicAccounts.txt", true);
              fw.write(Integer.toString(accountId) + '\n');
-             fw.write(firstName + ' ');
-             fw.write(lastName + '\n');
+             fw.write(name + '\n');
              fw.write(Integer.toString(age) + '\n');
              fw.write(address + '\n');
              fw.write(balance + "\n\n");

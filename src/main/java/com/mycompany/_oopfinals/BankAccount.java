@@ -5,8 +5,7 @@ package com.mycompany._oopfinals;
  */
 public abstract class BankAccount implements AccountInterface {
     protected int accountId;
-    protected String firstName;
-    protected String lastName;
+    protected String name;
     protected int age;
     protected String address;
     protected double balance;
@@ -14,11 +13,8 @@ public abstract class BankAccount implements AccountInterface {
     public int getId() { return accountId; }
     public void setId(int accountId) { this.accountId = accountId; }
     
-    public String getFirstName() { return firstName; }
-    public void setFirstName(String firstName) { this.firstName = firstName; }
-
-    public String getLastName() { return lastName; }
-    public void setLastName(String lastName) { this.lastName = lastName; }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
     public int getAge() { return age; }
     public void setAge(int age) { this.age = age; }
@@ -41,4 +37,12 @@ public abstract class BankAccount implements AccountInterface {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    public void displayInfo()
+    {
+        System.out.println("Account Id: " + accountId 
+                + "\nName: " + name 
+                + "\nAge: " + age 
+                + "\nAddress: " + address 
+                + "\nBalance: " + balance);
+    }
 }

@@ -72,10 +72,8 @@ public class Bank {
             user.setId(newId);
             newId++;
             updateUserId();
-            System.out.print("First Name: ");
-            user.setFirstName(scn.nextLine());
-            System.out.print("Last Name: ");
-            user.setLastName(scn.nextLine());
+            System.out.print("Name: ");
+            user.setName(scn.nextLine());
             System.out.print("Age: ");
             user.setAge(scn.nextInt());
             scn.nextLine(); 
@@ -88,13 +86,35 @@ public class Bank {
         System.out.println("Account Added.");
     }
     
+    private int getUserFileOffset(String searchTerm)
+    {
+        try{
+            Scanner scn = new Scanner(new File("BasicAccounts.txt"));
+            int lineCount = 0;
+            int chOffset = 0;
+            int chOffsetBeginning = 0; //Beginning of entry
+            while(scn.hasNextLine())
+            {
+                lineCount++;
+                String str = scn.nextLine(); 
+                if(lineCount % 6 == 1)
+                    chOffsetBeginning = chOffset;
+                if(str.contains(searchTerm))
+                    return chOffsetBeginning;
+                chOffset += str.length() + 2; // need to +1 for newline, +2 if not working
+                
+            }
+        }catch(Exception e){ System.out.println(e); }  
+        return -1;
+    }
+    
     private void updateUserId()
     {
         try
         {
             RandomAccessFile file = new RandomAccessFile("BankData.txt", "rws"); 
             file.seek(24);
-            file.write((newId+"").getBytes());
+            file.write((newId + "").getBytes());
             file.close();
         } catch(Exception e){ System.out.println(e); }
     }
@@ -116,11 +136,10 @@ public class Bank {
                     
                     if(str.contains(id))
                     {
-                                                                     System.out.println(str);
                         getAccountFromFile(chOffsetBeginning);
                     } 
                 }
-                chOffset += str.length() + 1; // need to +1 for newline
+                chOffset += str.length() + 2; // need to +1 for newline, +2 if not working
                 
             }
         }catch(Exception e){ System.out.println(e); }  
@@ -145,24 +164,29 @@ public class Bank {
                 {
                     if(str.contains(name))
                     {
-                                                                     System.out.println(str);
                         getAccountFromFile(chOffsetBeginning);
                     } 
                 }
-                chOffset += str.length() + 1; // need to +1 for newline
+                chOffset += str.length() + 2; // need to +1 for newline, +2 if not working
                 
             }
         }catch(Exception e){ System.out.println(e); }
     }
     
-    public BankAccount getAccountFromFile(int offset)
+    private BankAccount getAccountFromFile(int offset)
     {
         System.out.println("Reached");
         try{
             RandomAccessFile file = new RandomAccessFile("BasicAccounts.txt", "r"); 
-                                                      System.out.println(offset);
             file.seek(offset);
-            System.out.println(file.readLine());
+            BankAccount account = new BasicAccount();
+            account.setId(Integer.parseInt(file.readLine()));
+            account.setName(file.readLine());
+            account.setAge(Integer.parseInt(file.readLine()));
+            account.setAddress(file.readLine());
+            account.setBalance(Double.parseDouble(file.readLine()));
+            account.displayInfo();
+            return account;
         }catch(Exception e){ System.out.println(e); }
         return new BasicAccount();
     }
