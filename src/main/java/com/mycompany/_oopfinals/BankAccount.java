@@ -23,7 +23,7 @@ public abstract class BankAccount implements AccountInterface {
     public void setAddress(String address) { this.address = address; }
     
     public double getBalance() { return balance; }
-    public void setBalance(double age) { this.balance = balance; }
+    public void setBalance(double balance) { this.balance = balance; }
     
     public abstract void writeAccount();
     public abstract void updateEntry(int offset);

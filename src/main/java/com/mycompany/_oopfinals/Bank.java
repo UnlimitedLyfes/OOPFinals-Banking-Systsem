@@ -112,12 +112,15 @@ public class Bank {
                     System.out.print("Insert amount to deposit: ");
                     acc.deposit(Double.parseDouble(getStringInput()));
                     acc.updateEntry(offset);
-                    System.out.println("Deposit Successful. Balance: " + acc.getBalance());
+                    System.out.println("\nDeposit Successful. Balance: " + acc.getBalance());
                     break;
                 case 2:
-                    System.out.print("Insert amount to withdraw: ");
+                  System.out.print("Insert amount to withdraw: ");
                     if(acc.withdraw(Double.parseDouble(getStringInput())))
-                        acc.updateEntry(offset);
+                        {
+                            acc.updateEntry(offset);
+                            System.out.println("\nWithdraw Successful. Balance: " + acc.getBalance());
+                        }
                     else 
                         System.out.println("\nNot enough balance.");
                     break;
@@ -129,7 +132,7 @@ public class Bank {
                     acc.setName("[-]");
                     acc.updateEntry(offset);
                     break;
-                case 6:
+                case 5:
                     return;
             }
         }
@@ -141,7 +144,7 @@ public class Bank {
                 + "[1] Change Name\n"
                 + "[2] Chenge Age\n"
                 + "[3] Change Address\n"
-                + "[4] Exit"
+                + "[4] Exit\n"
                 + "> ");
         switch(getChoice())
         {
@@ -208,7 +211,7 @@ public class Bank {
             account.setName(file.readLine());
             account.setAge(Integer.parseInt(file.readLine()));
             account.setAddress(file.readLine());
-            account.setBalance(Double.parseDouble(file.readLine()));
+            account.setBalance(Double.parseDouble(file.readLine().trim()));
             return account;
         }catch(Exception e){ System.out.println(e + "getAccountFromOffset"); }
         return new BasicAccount();

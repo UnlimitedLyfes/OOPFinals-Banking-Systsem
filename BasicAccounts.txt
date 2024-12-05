@@ -1,18 +1,18 @@
+1
+ROSS
 19
-ROA
-3
-Prenup
-200000.0
+Las Pinas
+2.0
 
+2
+JOHN
 20
-ROTS
-3
-Prenx
-2000.0
+Alabang
+3940.0
 
-22
-PRO
-22
-Press
-0.0
+3
+ROB
+40
+Sucat
+432.23
 
