@@ -34,8 +34,11 @@ public abstract class BankAccount implements AccountInterface {
     }
 
     @Override
-    public void withdraw(double amount) {
+    public boolean withdraw(double amount) {
+        if(balance < amount)
+            return false;
         balance -= amount;
+        return true;
     }
 
     public void displayInfo()

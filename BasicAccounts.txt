@@ -1,12 +1,18 @@
-5
-A
-12
-Addrea
-0.0
+19
+ROA
+3
+Prenup
+200000.0
 
-6
-B
-23
-Ewwa
+20
+ROTS
+3
+Prenx
+2000.0
+
+22
+PRO
+22
+Press
 0.0
 

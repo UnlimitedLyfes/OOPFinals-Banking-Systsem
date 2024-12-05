@@ -1,13 +1,16 @@
 package com.mycompany._oopfinals;
-import java.io.*;
-public class BasicAccount extends BankAccount {
+
+import java.io.FileWriter;
+import java.io.RandomAccessFile;
+
+public class GoldAccount extends BankAccount {
     
     @Override
     public void writeAccount()
     {
         try
         {
-             FileWriter fw = new FileWriter("BasicAccounts.txt", true);
+             FileWriter fw = new FileWriter("GoldAccounts.txt", true);
              fw.write(accountId + "\n");
              fw.write(name + "\n");
              fw.write(age + "\n");
@@ -21,7 +24,7 @@ public class BasicAccount extends BankAccount {
     public void updateEntry(int offset)
     {
         try{
-            RandomAccessFile file = new RandomAccessFile("BasicAccounts.txt", "rwd");
+            RandomAccessFile file = new RandomAccessFile("GoldAccounts.txt", "rwd");
             file.seek(offset);
             file.write((accountId + "\n").getBytes());
             file.write((name + "\n").getBytes());
@@ -32,3 +35,4 @@ public class BasicAccount extends BankAccount {
         }catch(Exception e){ System.out.println(e);}
     }
 }
+
